@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card de Produto</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-card: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            width: 300px;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0 0 8px 0;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .total-container {
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .total-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="product-card">
+        <h2 class="product-title">Baldur's Gate </h2>
+        <div class="product-price">Preço unitário: R$ <span id="unit-price">29,90</span></div>
+
+        <div class="control-group">
+            <label for="quantity">Quantidade:</label>
+            <input type="number" id="quantity" value="1" min="0" max="10" onchange="recalcularTotal()">
+        </div>
+
+        <div class="total-container">
+            <span class="total-label">Total:</span>
+            <span class="total-value">R$ <span id="total-price">29,90</span></span>
+        </div>
+    </div>
+
+    <script>
+        const PRECO_UNITARIO = 29.90;
+
+        function recalcularTotal() {
+            const inputQuantidade = document.getElementById('quantity');
+            let quantidade = parseInt(inputQuantidade.value);
+
+            if (isNaN(quantidade) || quantidade < 0) {
+                quantidade = 0;
+                inputQuantidade.value = 0;
+            } else if (quantidade > 10) {
+                quantidade = 10;
+                inputQuantidade.value = 10;
+            }
+
+            const total = quantidade * PRECO_UNITARIO;
+            const totalFormatado = total.toFixed(2).replace('.', ',');
+            document.getElementById('total-price').innerText = totalFormatado;
+        }
+        </script>
+    </body>
+</html>
