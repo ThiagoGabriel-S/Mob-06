@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Seleção de Endereço</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .opcao {
+            margin-bottom: 10px;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>Selecione o endereço de entrega:</h3>
+    <div class="opcao">
+        <input type="radio" id="casa" name="endereco" value="casa" checked onchange="verificarEndereco()">
+        <label for="casa">🏠 Casa</label>
+    </div>
+
+    <div class="opcao">
+        <input type="radio" id="trabalho" name="endereco" value="trabalho" onchange="verificarEndereco()">
+        <label for="trabalho">🏢 Trabalho</label>
+    </div>
+
+    <div class="opcao">
+        <input type="radio" id="outro" name="endereco" value="outro" onchange="verificarEndereco()">
+        <label for="outro">🌳 Sítio</label>
+    </div>
+    <div id="mensagem"></div>
+
+    <script>
+        function verificarEndereco() {
+            
+            const selecionado = document.querySelector('input[name="endereco"]:checked');
+            const elementoMensagem = document.getElementById('mensagem');
+
+            if (selecionado) {
+                if (selecionado.value === 'casa') {
+                    elementoMensagem.textContent = "🏠 Seu pedido será entregue na sua casa.";
+                } else if (selecionado.value === 'trabalho') {
+                    elementoMensagem.textContent = "🏢 Seu pedido será entregue no trabalho.";
+                } else if (selecionado.value === 'outro') {
+                    elementoMensagem.textContent = "🌳 Seu pedido será entregue no sítio.";
+                } else {
+                    elementoMensagem.textContent = "❓ Endereço não reconhecido.";
+                }
+            } else {
+                elementoMensagem.textContent = "⚠️ Por favor, selecione um endereço.";
+            }
+        }
+        window.onload = verificarEndereco;
+    </script>
+</body>
+</html>

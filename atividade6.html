@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333333;
+            text-align: center;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666666;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #4caf50;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            background-color: #4caf50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f4e8;
+            border-left: 5px solid #4caf50;
+            color: #2e6930;
+            border-radius: 4px;
+            display: none;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Cadastro de Cliente</h2>
+        <div class="campo">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite o nome">
+        </div>
+        <div class="campo">
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" placeholder="Digite a idade">
+        </div>
+        <div class="campo">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" placeholder="Digite a cidade">
+        </div>
+        <button onclick="cadastrarCliente()">Cadastrar</button>
+        <p id="resultado"></p>
+    </div>
+    <script>
+        function cadastrarCliente() {
+            
+            const nome = document.getElementById('nome').value.trim();
+            const idade = document.getElementById('idade').value.trim();
+            const cidade = document.getElementById('cidade').value.trim();
+            const paragrafoResultado = document.getElementById('resultado');
+
+            if (nome === '' || idade === '' || cidade === '') {
+                paragrafoResultado.style.display = 'block';
+                paragrafoResultado.style.backgroundColor = '#fde8e8';
+                paragrafoResultado.style.borderLeftColor = '#e53e3e';
+                paragrafoResultado.style.color = '#9b1c1c';
+                paragrafoResultado.textContent = 'Por favor, preencha todos os campos antes de cadastrar.';
+                return;
+            }
+
+            paragrafoResultado.style.display = 'block';
+            paragrafoResultado.style.backgroundColor = '#e7f4e8';
+            paragrafoResultado.style.borderLeftColor = '#4caf50';
+            paragrafoResultado.style.color = '#2e6930';
+            paragrafoResultado.innerHTML = `<strong> Cliente Cadastrado com Sucesso!</strong><br>` +
+                `👤 <strong>Nome:</strong> ${nome}<br>` +
+                `🎂 <strong>Idade:</strong> ${idade} anos<br>` +
+                `🏙️ <strong>Cidade:</strong> ${cidade}`;
+        }
+    </script>
+</body>
+</html>

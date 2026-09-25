@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do Pedido</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container-pedido {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #dc3545;
+            text-align: center;
+            border-bottom: 2px dashed #f5c2c7;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin-bottom: 20px;
+        }
+
+        label.titulo-secao {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+            background-color: #fff;
+        }
+
+        .opcao-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #dc3545;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #bd2130;
+        }
+
+        #resumo {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            color: #664d03;
+            border-radius: 6px;
+            display: none;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-pedido">
+        <h2>🍔 Monte seu Pedido</h2>
+
+        <div class="secao">
+            <label class="titulo-secao" for="tamanho">Escolha o Tamanho:</label>
+            <select id="tamanho">
+                <option value="Pequeno (Broto)">Pequeno (Broto) 🍕</option>
+                <option value="Médio (Padrão)">Médio (Padrão) 🍔</option>
+                <option value="Grande (Família)">Grande (Família) 🦖</option>
+            </select>
+        </div>
+        <div class="secao">
+            <label class="titulo-secao">Adicionais (Opcional):</label>
+            <label class="opcao-inline">
+                <input type="checkbox" id="fritas"> 🍟 Batata Frita
+            </label>
+            <label class="opcao-inline">
+                <input type="checkbox" id="refrigerante"> 🥤 Refrigerante
+            </label>
+            <label class="opcao-inline">
+                <input type="checkbox" id="bacon"> 🥓 Bacon Extra
+            </label>
+        </div>
+        <div class="secao">
+            <label class="titulo-secao">Forma de Pagamento:</label>
+            <label class="opcao-inline">
+                <input type="radio" name="pagamento" value="Cartão de Crédito" checked> 💳 Cartão de Crédito
+            </label>
+            <label class="opcao-inline">
+                <input type="radio" name="pagamento" value="Pix"> 📱 Pix
+            </label>
+            <label class="opcao-inline">
+                <input type="radio" name="pagamento" value="Dinheiro"> 💵 Dinheiro
+            </label>
+        </div>
+
+        <button onclick="fecharPedido()">Fechar Pedido</button>
+        <p id="resumo"></p>
+    </div>
+
+    <script>
+        function fecharPedido() {
+ 
+            const tamanho = document.getElementById('tamanho').value;
+            const pagamentoSelecionado = document.querySelector('input[name="pagamento"]:checked').value;
+            let adicionais = "";
+
+            if (document.getElementById("fritas").checked) {
+                adicionais += "🍟 Batata Frita, ";
+            }
+            if (document.getElementById("refrigerante").checked) {
+                adicionais += "🥤 Refrigerante, ";
+            }
+            if (document.getElementById("bacon").checked) {
+                adicionais += "🥓 Bacon Extra, ";
+            }
+
+            if (adicionais !== "") {
+                adicionais = adicionais.slice(0, -2);
+            } else {
+                adicionais = "Nenhum adicional escolhido ❌";
+            }
+
+            const elementoResumo = document.getElementById('resumo');
+            elementoResumo.style.display = 'block';
+
+            elementoResumo.innerHTML = `<strong>📋 RESUMO DO SEU PEDIDO</strong><br><br>` +
+                `📐 <strong>Tamanho:</strong> ${tamanho}<br>` +
+                `➕ <strong>Adicionais:</strong> ${adicionais}<br>` +
+                `💵 <strong>Pagamento:</strong> ${pagamentoSelecionado}<br><br>` +
+                `✨ <em>Seu pedido foi enviado para a cozinha!</em>`;
+        }
+    </script>
+</body>
+</html>

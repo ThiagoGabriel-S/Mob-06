@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            outline: none;
+        }
+
+        .resultado-box {
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background-color: #eee;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Resumo do Pedido</h2>
+        <p>Total original: <strong>R\$ 100,00</strong></p>
+
+        <label for="formaPagamento">Escolha a forma de pagamento:</label>
+        <select id="formaPagamento" onchange="calcularTotal()">
+            <option value="">-- Selecione uma opção --</option>
+            <option value="pix">PIX (5% de desconto)</option>
+            <option value="cartao">Cartão de Crédito/Débito</option>
+            <option value="dinheiro">Dinheiro (10% de desconto)</option>
+        </select>
+
+        <div id="resultado" class="resultado-box">
+            Selecione uma forma de pagamento para ver o total.
+        </div>
+    </div>
+    <script>
+        function calcularTotal() {
+            const totalOriginal = 100.00;
+            const select = document.getElementById("formaPagamento");
+            const resultadoDiv = document.getElementById("resultado");
+            const opcaoId = select.value;
+
+            let totalFinal = totalOriginal;
+            let corFundo = "#eee";
+            let corTexto = "#333";
+            let mensagem = "";
+
+            if (opcaoId === "") {
+                resultadoDiv.style.backgroundColor = "#eee";
+                resultadoDiv.style.color = "#333";
+                resultadoDiv.innerHTML = "Selecione uma forma de pagamento para ver o total.";
+                return;
+            }
+
+            
+            switch (opcaoId) {
+                case "pix":
+                    totalFinal = totalOriginal * 0.95; 
+                    corFundo = "#e6f4ea";
+                    corTexto = "#137333"; 
+                    mensagem = "PIX selecionado (5% desc.)";
+                    break;
+                case "cartao":
+                    totalFinal = totalOriginal;
+                    corFundo = "#e8f0fe";
+                    corTexto = "#1a73e8";
+                    mensagem = "Cartão selecionado (Valor original)";
+                    break;
+                case "dinheiro":
+                    totalFinal = totalOriginal * 0.90; 
+                    corFundo = "#fef7e0"; 
+                    corTexto = "#b06000"; 
+                    mensagem = "Dinheiro selecionado (10% desc.)";
+                    break;
+            }
+
+            const valorFormatado = totalFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            resultadoDiv.style.backgroundColor = AdministerStyles(corFundo);
+            resultadoDiv.style.color = corTexto;
+            resultadoDiv.innerHTML = `<div>${mensagem}</div><div style="font-size: 24px; margin-top: 5px;">${valorFormatado}</div>`;
+        }
+
+        function AdministerStyles(cor) {
+            return cor;
+        }
+    </script>
+</body>
+</html>

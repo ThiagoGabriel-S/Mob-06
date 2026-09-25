@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternador de Tema</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.escuro {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #btn-claro {
+            background-color: #f0f0f0;
+            color: #333333;
+        }
+
+        #btn-escuro {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Alternar Tema</h1>
+        <button id="btn-claro" onclick="mudarTema('claro')">☀️ Tema Claro</button>
+        <button id="btn-escuro" onclick="mudarTema('escuro')">🌙 Tema Escuro</button>
+        <p id="mensagem">Tema atual: ☀️ Claro</p>
+    </div>
+
+    <script>
+        function mudarTema(tipo) {
+            const corpo = document.body;
+            const mensagem = document.getElementById('mensagem');
+
+            if (tipo === 'escuro') {
+                corpo.classList.add('escuro');
+                mensagem.textContent = "Tema atual: 🌙 Escuro";
+            } else {
+                corpo.classList.remove('escuro'); 
+                mensagem.textContent = "Tema atual: ☀️ Claro";
+            }
+        }
+    </script>
+
+</body>
+</html>

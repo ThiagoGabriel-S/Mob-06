@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Avançado de Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .grupo {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+
+        /* Estilização dos inputs e select com largura de 90% conforme instrução */
+        input[type="text"],
+        select {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 15px;
+            display: block;
+        }
+
+        /* Container para alinhar os botões de rádio lado a lado */
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-opcao {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            color: #333333;
+            display: none;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>📝 Cadastro de Perfil</h2>
+
+        <!-- Campo de texto para o nome -->
+        <div class="grupo">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome">
+        </div>
+
+        <!-- Select para as cidades -->
+        <div class="grupo">
+            <label for="cidade">Cidade:</label>
+            <select id="cidade">
+                <option value="São Paulo">São Paulo 🏙️</option>
+                <option value="Rio de Janeiro">Rio de Janeiro 🏖️</option>
+                <option value="Belo Horizonte">Belo Horizonte ⛰️</option>
+                <option value="Salvador">Salvador 🏛️</option>
+            </select>
+        </div>
+
+        <!-- Botões de rádio com o mesmo name e um deles já marcado (checked) -->
+        <div class="grupo">
+            <label>Tipo de Cliente:</label>
+            <div class="radio-group">
+                <label class="radio-opcao">
+                    <input type="radio" name="tipo" value="Novo" checked> 🌱 Novo
+                </label>
+                <label class="radio-opcao">
+                    <input type="radio" name="tipo" value="Cliente"> 💎 Cliente Recorrente
+                </label>
+            </div>
+        </div>
+
+        <!-- Botão para executar a ação -->
+        <button onclick="cadastrarDados()">Cadastrar</button>
+
+        <!-- Parágrafo para exibir os dados concatenados -->
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function cadastrarDados() {
+            // Captura dos elementos simples do formulário
+            const nome = document.getElementById('nome').value.trim();
+
+            // Capture o valor do select com .value
+            const cidade = document.getElementById('cidade').value;
+
+            // Capture o radio selecionado com querySelector usando o seletor informado
+            const tipoSelecionado = document.querySelector('input[name="tipo"]:checked');
+
+            const elementoResultado = document.getElementById('resultado');
+
+            // Validação para garantir que o nome não foi deixado em branco
+            if (nome === "") {
+                elementoResultado.style.display = 'block';
+                elementoResultado.innerHTML = "⚠️ <strong>Erro:</strong> Por favor, digite o seu nome antes de continuar.";
+                elementoResultado.style.backgroundColor = "#fff3cd";
+                elementoResultado.style.color = "#856404";
+                return;
+            }
+
+            elementoResultado.style.display = 'block';
+            elementoResultado.style.backgroundColor = '#e2f0d9';
+            elementoResultado.style.color = '#385723';
+
+            elementoResultado.innerHTML = `<strong>✅ Cadastro Realizado com Sucesso!</strong><br>` +
+                `👤 <strong>Nome:</strong> ${nome}<br>` +
+                `🏙️ <strong>Cidade Selecionada:</strong> ${cidade}<br>` +
+                `🎖️ <strong>Tipo de Cliente:</strong> ${tipoSelecionado.value}`;
+        }
+    </script>
+
+</body>
+
+</html>
